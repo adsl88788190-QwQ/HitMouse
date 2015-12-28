@@ -1,0 +1,17 @@
+git clone https://github.com/TeamName/ProjectName //先進行複製到本機
+
+cd ProjectName  //進入專案中 Ex: cd Null
+
+git add FileName.subfilename //新增檔案 git add 檔名.附檔名
+
+git commit FileName.subfilename -m "Your words." //提交 gitcommit 檔名.附檔名 -m "註解的話"
+git config --global user.email "you@example.com" // 提交者的信箱
+git config --global user.name "Your Name" 	 // 提交者的名字
+git commit FileName.subfilename -m "Your words." 
+
+git push origin master    			// 上傳 照抄
+git pull origin master				// 同步 照抄
+
+login your account
+
+git status // 知道之中有啥檔案
