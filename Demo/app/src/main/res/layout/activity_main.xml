@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -10,43 +12,78 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="不要打維宗"
         android:id="@+id/textView"
+        android:text="不要打維宗QQ"
+        android:textStyle="bold"
+        android:textColor="@color/clouds"
         android:textSize="30dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:shadowColor="@color/sun_flower"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="24"
+        android:padding="12dp"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:layout_weight="0.10">
+        android:layout_height="250dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/mikumouse" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:id="@+id/imageView"
-            android:src="#d73a3a" />
-    </LinearLayout>
 
-    <Button
+    <info.hoang8f.widget.FButton
+        android:id="@+id/Start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:minHeight="45dp"
+        android:minWidth="100dp"
         android:text="開始遊戲"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal" />
+        android:textColor="@android:color/white"
+        fbutton:buttonColor="@color/alizarin"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="6dp"/>
 
-    <Button
+    <info.hoang8f.widget.FButton
+        android:id="@+id/Change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="換鎚子"
-        android:id="@+id/button2"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:minHeight="45dp"
+        android:minWidth="100dp"
+        android:text="換槌子"
+        android:textColor="@android:color/white"
+        fbutton:buttonColor="@color/carrot"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="6dp"/>
 
-    <Button
+    <info.hoang8f.widget.FButton
+        android:id="@+id/Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="分數"
-        android:id="@+id/button3"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:minHeight="45dp"
+        android:minWidth="100dp"
+        android:text="顯示分數"
+        android:textColor="@android:color/white"
+        fbutton:buttonColor="@color/sun_flower"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="6dp"/>
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/primary_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:minHeight="45dp"
+        android:minWidth="100dp"
+        android:text="分享"
+        android:textColor="@android:color/white"
+        fbutton:buttonColor="@color/fbutton_color_turquoise"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="6dp"/>
 </LinearLayout>
