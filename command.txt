@@ -20,7 +20,7 @@ git status // 知道之中有啥檔案
 ========================================
 cd 進專案
 git add .
-git commit -m "註解"
+git commit . -m "註解"
 git push origin master 
 =========================
 一開始要同步 
