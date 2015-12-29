@@ -1,4 +1,4 @@
-git clone https://github.com/TeamName/ProjectName //先進行複製到本機
+﻿git clone https://github.com/TeamName/ProjectName //先進行複製到本機
 
 cd ProjectName  //進入專案中 Ex: cd Null
 
@@ -15,3 +15,13 @@ git pull origin master				// 同步 照抄
 login your account
 
 git status // 知道之中有啥檔案
+
+
+========================================
+cd 進專案
+git add .
+git commit -m "註解"
+git push origin master 
+=========================
+一開始要同步 
+git pull origin master 
