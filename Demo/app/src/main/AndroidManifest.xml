@@ -15,7 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".star1" >
+        <activity android:name=".ChooseList" >
         </activity>
         <activity android:name=".ScoreList" >
         </activity>
@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".ChangeWeapon" >
         </activity>
+
     </application>
 
 </manifest>
