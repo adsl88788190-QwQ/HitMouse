@@ -8,10 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class StartGame extends AppCompatActivity implements View.OnClickListener{
@@ -19,7 +25,8 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
     TextView tvscore;
     TextView tvtime;
     int score=0;
-    int startTime=5;
+    int startTime=15;
+    String[] Access={"boss","monster1","monster2","monster3","monster4","monster5","monster6","monster7"};
     AlertDialog.Builder builder;
     private Handler handler =new Handler();
 
@@ -28,15 +35,18 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
         tvscore=(TextView)findViewById(R.id.textView2);
-        handler.postDelayed(updataTimer,1000);
+        handler.postDelayed(updataTimer, 1000);
+        handler.postDelayed(random,2000);
         image=new ImageView[9];
         builder=new AlertDialog.Builder(this);
         for(int i=0;i<=8;i++){
             String name="imageView"+(i+1);
             image[i]=(ImageView)findViewById(getResources().getIdentifier(name,"id",getPackageName()));
             image[i].setOnClickListener(this);
-
+            image[i].setImageResource(getResources().getIdentifier(Access[(int)(Math.random()*8)],"drawable",getPackageName()));
         }
+
+
 
     }
 
@@ -60,6 +70,9 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
                 handler.postDelayed(this, 1000);
 
             }else{
+                handler.removeCallbacks(updataTimer);
+                handler.removeCallbacks(random);
+
                 for(int i=0;i<=8;i++){
                     String name="imageView"+(i+1);
                     image[i].setOnClickListener(null);
@@ -80,6 +93,7 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
                         }
                     });
                 AlertDialog dialog = builder.create();
+                dialog.setCancelable(false);
                 dialog.show();
 
 
@@ -88,5 +102,31 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
         }
     };
 
+    List<Integer> list=new ArrayList<Integer>(Arrays.asList(0,1,2,3,4,5,6,7,8));
+    public Runnable random=new Runnable() {
+
+        @Override
+        public void run() {
+
+            handler.postDelayed(this,2000);
+            int num1 =(int)(Math.random()*8+1);
+
+            for(ImageView i:image){
+               // i.setVisibility(View.INVISIBLE);
+            }
+            for(int i=0;i<num1;i++){
+                int num2 = list.get(i);
+//            image[num2].setImageResource(getResources().getIdentifier(Access[(int)Math.random()*8],"id",getPackageName()));
+                Animation am=new TranslateAnimation(image[num2].getX(),image[num2].getX(),image[num2].getY(),image[num2].getY()-((int)(Math.random()*36+15)));
+                am.setDuration(2000);
+                am.setRepeatCount(0);
+                image[num2].setVisibility(View.VISIBLE);
+                image[num2].setAnimation(am);
+                am.startNow();
+
+
+            }
+        }
+    };
 
 }
