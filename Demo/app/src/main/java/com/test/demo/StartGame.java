@@ -1,18 +1,23 @@
 package com.test.demo;
 
 import android.app.AlertDialog;
+import android.app.usage.UsageEvents;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.EventLog;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.sql.Statement;
@@ -25,6 +30,8 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
     ImageView[] image;
     TextView tvscore;
     TextView tvtime;
+    ImageView viewtouch;
+    RelativeLayout Rl;
     int num2;
     int score = 0;
     int startTime = 20;
@@ -36,16 +43,20 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
+
+        viewtouch = (ImageView) findViewById(R.id.imageView10);
         tvscore = (TextView) findViewById(R.id.textView2);
-        handler.postDelayed(updataTimer, 1000);
-        handler.postDelayed(random, 1000);
+//        Rl = (RelativeLayout) findViewById(R.id.Rlayout);
+
+//        handler.postDelayed(updataTimer, 1000);
+//        handler.postDelayed(random, 1000);
         image = new ImageView[9];
         builder = new AlertDialog.Builder(this);
         for (int i = 0; i <= 8; i++) {
             String name = "imageView" + (i + 1);
             image[i] = (ImageView) findViewById(getResources().getIdentifier(name, "id", getPackageName()));
             image[i].setOnClickListener(this);
-
+//            image[i].setOnTouchListener(onTouchListener);
         }
 
 
@@ -54,13 +65,21 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
 
-        ImageView newimage = (ImageView) v;
+        final ImageView newimage = (ImageView) v;
         if (newimage.getDrawable().getCurrent().getConstantState() == getResources().getDrawable(R.drawable.boss).getConstantState()) {
+
             score -= 50;
-        } else
+        } else {
+
             score += 5;
+        }
+        newimage.clearAnimation();
+//        newimage.setImageDrawable(getResources().getDrawable(R.drawable.boom));
         tvscore.setText("score:" + score);
+
     }
+
+
 
     public Runnable updataTimer = new Runnable() {
         @Override
@@ -104,7 +123,7 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
         }
     };
 
-    List<Integer> list = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8));
+
     public Runnable random = new Runnable() {
 
         @Override
@@ -133,5 +152,20 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
             }
         }
     };
+
+//    View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+//        @Override
+//        public boolean onTouch(View v, MotionEvent event) {
+//            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//
+//           Toast.makeText(StartGame.this,event.getX()+" "+event.getY(),Toast.LENGTH_SHORT).show();
+//                viewtouch.setImageResource(R.drawable.weapan);
+//                viewtouch.setVisibility(View.VISIBLE);
+//                viewtouch.setX(v.getX()-50);
+//                viewtouch.setY(v.getY()-50);
+//            }
+//            return false;
+//        }
+//    };
 
 }
