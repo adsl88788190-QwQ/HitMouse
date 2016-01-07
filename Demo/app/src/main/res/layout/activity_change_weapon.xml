@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/viewPager"
-        >
+        android:layout_above="@+id/button">
         <android.support.v4.view.PagerTitleStrip
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -19,5 +19,13 @@
             />
 
     </android.support.v4.view.ViewPager>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

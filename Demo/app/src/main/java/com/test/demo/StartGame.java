@@ -4,11 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 
 import android.view.animation.Animation;
@@ -26,6 +29,7 @@ public class StartGame extends AppCompatActivity {
     TextView tvscore;
     TextView tvtime;
     ImageView viewtouch;
+    int reid;
     RelativeLayout Rl;
     int num2;
     int score = 0;
@@ -39,7 +43,10 @@ public class StartGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
+        SharedPreferences setting=getSharedPreferences("weapan", 0);
+        reid=setting.getInt("weapan",0);
         viewtouch = (ImageView) findViewById(R.id.imageView10);
+        viewtouch.setImageResource(reid);
         tvscore = (TextView) findViewById(R.id.textView2);
         tvtime = (TextView) findViewById(R.id.textView3);
         //Rand Num
@@ -52,7 +59,7 @@ public class StartGame extends AppCompatActivity {
             String name = "imageView" + (i + 1);
             image[i] = (ImageView) findViewById(getResources().getIdentifier(name, "id", getPackageName()));
             image[i].setOnClickListener(ImageClick);
-            image[i].setAnimation(am);
+            //image[i].setAnimation(am);
         }
         //Start Time & Start
         handler.postDelayed(updataTimer, 1000);
@@ -116,6 +123,7 @@ public class StartGame extends AppCompatActivity {
         am = new TranslateAnimation(0, 0, 0, 0 - ((int) (Math.random() * 36 + 15)));//注意
         am.setDuration(1000);
         am.setRepeatCount(0);
+
     }
     // 取得圖片
     public static Bitmap readBitMap(Context context, int resId){
@@ -132,26 +140,48 @@ public class StartGame extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             final ImageView newimage = (ImageView) view;
-            if (newimage.getDrawable().getCurrent().getConstantState() == getResources().getDrawable(R.mipmap.boss).getConstantState()) {
+            try {
+                Drawable.ConstantState temp1 = newimage.getDrawable().getCurrent().getConstantState();
+
+            Drawable.ConstantState temp2 = getResources().getDrawable(R.mipmap.boss).getConstantState();
+            if ( temp1 == temp2) {
                 score -= 50;
             } else {
                 score += 5;
             }
             newimage.setImageBitmap(readBitMap(StartGame.this,R.mipmap.boom));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     };
     public Runnable random = new Runnable() {
         @Override
         public void run() {
             int num1 = ((int) (Math.random() * 4))+1;//一次出現1~5個地鼠
-            for (ImageView i : image)  //讓每張圖都看不見
+            for (ImageView i : image) {  //讓每張圖都看不見
                 i.setVisibility(View.INVISIBLE);
+                i.setAnimation(null);
+            }
             for (int i = 0; i < num1; i++) {
                 int resid = getResources().getIdentifier(Access[(int) (Math.random() * 8)], "mipmap", getPackageName());
                 image[randmap[randnum + i]].setImageResource(resid);
                 image[randmap[randnum+i]].setVisibility(View.VISIBLE);
+                image[randmap[randnum+i]].setAnimation(am);
+                am.start();
             }
             randnum+=num1;
         }
     };
+
+
+
+    public boolean onTouchEvent(MotionEvent event) {
+        if(event.getAction()==MotionEvent.ACTION_DOWN){
+
+            viewtouch.setX(event.getX()-20);
+            viewtouch.setY(event.getY()-80);
+        }
+        return super.onTouchEvent(event);
+    }
 }
